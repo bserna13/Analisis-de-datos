@@ -1,0 +1,2 @@
+"0","# Primera vista graficamente de los datos: "
+"0","plot(datos_ts, col = ""blue"", main = ""Serie"", ylab = ""Z_t"", type = ""o"")"

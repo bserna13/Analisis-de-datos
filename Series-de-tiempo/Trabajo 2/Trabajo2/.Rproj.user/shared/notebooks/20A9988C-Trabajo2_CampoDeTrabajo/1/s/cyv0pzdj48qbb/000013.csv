@@ -1,0 +1,3 @@
+"0","# Calcular la ESACF"
+"0","esacf_result <- stats::acf(datos_ts^0.43, plot = FALSE)"
+"0","plot(esacf_result, main = ""Función de Autocorrelación Muestral Extendida (ESACF)"")"

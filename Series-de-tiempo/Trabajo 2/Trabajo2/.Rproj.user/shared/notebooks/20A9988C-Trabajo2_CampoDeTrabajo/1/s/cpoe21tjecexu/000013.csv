@@ -1,0 +1,1 @@
+"0","pacf(diff(datos_ts^.43,lag = 1), lag.max=30, ylim=c(-1,1))"

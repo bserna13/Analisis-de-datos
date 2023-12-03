@@ -1,0 +1,126 @@
+---
+title: "Trabajo 2 - Series de tiempo"
+author: "Julián Saavedra"
+date: "2023-05-27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Trabajo 2 - Series de tiempo
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+library(car)
+library(lmtest)
+# Series: 
+library(tseries)
+library(quantmod)
+library(foreign)
+library(astsa)
+library(forecast)
+library(fUnitRoots)
+```
+
+```{r}
+datos <- read.csv("Serie01_We_02_W6.csv", sep = ";")
+datos_ts = ts(datos) # Conversión a serie de tiempo
+```
+
+## Introducción:
+
+Como siempre, debemos hacer un primer acercamiento a los datos, mirar de qué forma se comportan para así identificar el proceso a seguir. Así, la grafica de los datos se presenta a continuación:
+
+```{r}
+# Primera vista graficamente de los datos: 
+plot(datos_ts, col = "blue", main = "Serie", ylab = "Z_t")
+```
+
+## Primeras observaciones: 
+
+-   Se observa un proceso con tendencia a aumentar, luego parece estabilizarse o posiblemente con una nueva tendencia a disminuir.
+
+-   A primera impresión podríamos decir que no se trata de un proceso estacionario, recordemos que para realizar un proceso ARIMA es importante que exista estacionariedad.
+
+De igual manera, realicemos una prueba de Dickey- Fuller para confirmar que no hay estacionariedad en la serie original, para esta prueba estamos ante el siguiente juego de hipótesis:
+
+$$H_0:\text{La serie no es estacionaria}\hspace{0.5cm}vs.\hspace{0.5cm}H_0:\text{La serie es estacionaria}$$
+
+Así, se tiene el test:
+
+```{r}
+adf.test(datos_ts, alternative = "stationary")
+```
+
+Por lo que no hay información suficiente para rechazar la hipótesis nula $$H_0$$ y confirmamos que nuestra serie inicial NO es estacionaria.
+
+-   Como esta serie no es estacionaria debemos convertirla a estacionaria, podemos hacerlo con diferencias o logaritmos. En nuestro caso, vamos a trabajar con diferencias.
+
+Ahora, para identificar si la varianza es homogenea o no, ya que no podemos evidenciarlo de buena manera en esta primera grafica, realizamos otra grafica diferenciando la serie:
+
+```{r}
+plot.ts(diff(datos_ts), ylab = "Z_(t)-Z-(t-1)", 
+        main = "Serie original diferenciada")
+```
+
+Observamos que efectivamente estamos ante un caso de varianza NO homogenea.
+
+Por lo que vamos a ver si para una diferencia la serie de tiempo es estacionaria:
+
+```{r}
+# Con una diferencia: 
+serie_df1 <- diff(datos_ts)
+adf.test(serie_df1, alternative = "stationary")
+```
+
+Vemos que ante el juego de hipótesis:
+
+$$H_0:\text{La serie no es estacionaria}\hspace{0.5cm}vs.\hspace{0.5cm}H_0:\text{La serie es estacionaria}$$
+
+Podemos rechazar $$H_0$$, ya que $$\alpha=0.05>p-value=0.01$$ y esto significa que NO existe una raíz unitaria en el modelo.
+
+### Graficos ACF y PACF:
+
+Ahora, miremos los graficos ACF y PACF para identificar el modelo ARIMA(p,d,q), donde ya sabemos que d = 1 por la cantidad de diferencias hechas para estacionariedad.
+
+#### ACF:
+
+Recordemos que la ACF nos indica el número de medias moviles
+
+```{r}
+# Gráfico ACF: 
+acf(ts(serie_df1, frequency = 1))
+```
+
+Según el grafico, se puede evidenciar que estamos ante un proceso MA(2).
+
+#### PACF: 
+
+Recordemos que la PACF nos indica el número de autorregresivos.
+
+```{r}
+# Grafico PACF
+pacf(ts(serie_df1, frequency = 1))
+```
+
+Según el grafico, se puede evidenciar que estamos ante un proceso AR(2).
+
+Así, nuestro modelo ARIMA(p,d,q) está dado por:
+
+```{r}
+modelo1 <- arima(datos_ts, order= c(2,1,2))
+modelo1
+```
+
+#### FALTA función de autocorrelación muestral extendida ESACF.
+
+### Identificación de otro modelo tentativo con rutina de selección automática:
+
+```{r}
+auto.arima(datos_ts)
+```
+
+### 

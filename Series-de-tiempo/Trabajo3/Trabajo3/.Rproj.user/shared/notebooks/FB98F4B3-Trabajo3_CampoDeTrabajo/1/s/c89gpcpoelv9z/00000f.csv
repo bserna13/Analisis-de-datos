@@ -1,0 +1,2 @@
+"0","modT4 <- tso(datos_ts)"
+"0","plot.tsoutliers(modT4)"

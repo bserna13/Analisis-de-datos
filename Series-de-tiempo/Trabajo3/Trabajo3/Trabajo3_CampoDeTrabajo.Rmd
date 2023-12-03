@@ -1,0 +1,346 @@
+---
+title: "Series de tiempo - Trabajo 3,4"
+author: "Julián Saavedra"
+date: "2023-06-11"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Trabajo 3:
+
+## Punto 1:
+
+```{r}
+library(astsa)
+library(tidyverse)
+library(forecast)
+library(tseries)
+library(car)
+library(MASS)
+```
+
+El conjunto de datos \# 1 es el correspondiente para este trabajo.
+
+Primero, verifiquemos que los datos "unemp" sean de tipo ts.
+
+```{r}
+# Lectura de datos:
+class(unemp)
+```
+
+### a) Gráfica y examen inicial de los datos:
+
+Grafiquemos y notemos qué comportamiento toma la serie de tiempo.
+
+```{r}
+plot(unemp)
+```
+
+Realicemos la prueba de Dickey-Fuller para confirmar si hay estacionariedad o no.
+
+Para eso, planteamos el siguiente juego de hipótesis:
+
+$$
+H_0:\text{La serie tiene al menos una raíz unitaria (No estacionaria)}\\\hspace{0.5cm}vs.\\\hspace{0.5cm}H_1:\text{La serie no tiene raíces unitarias (Estacionaria)}
+$$
+
+
+```{r}
+adf.test(unemp)
+```
+
+Según este test de Dickey-Fuller, se acepta la hipótesis alternativa que nos dice que la serie es estacionaria. NO vamos a aceptar este test como unico fundamento para definir estacionariedad en la serie ya que graficamente podemos ver comportamientos con tendencias. Por lo tanto, diremos que la serie no es estacionaria.
+
+De igual manera, vamos graficar la serie diferenciada para quitar tendencia y poder ver bien el comportamiento de la varianza en la serie:
+
+```{r}
+plot.ts(diff(unemp), main = " Serie original diferenciada",
+        ylab = "Z_t-Z_t-1")
+```
+
+Notemos que según esta grafica, la serie podría tener una media constante (0) pero la varianza parece fluctuar un poco, por lo que no asumimos varianza constante. Así, para el examen inicial de los datos tenemos:
+
+-   No se trata de un proceso estacionario.
+
+-   La varianza de la serie no es homogénea.
+
+-   Posiblemente se trate de un proceso integrado (raíces unitarias).
+
+### b) Tranformación de los datos:
+
+Aplicaremos la transformación Box-Cox:
+
+```{r}
+# Lo haremos de la siguiente manera, con la libreria forecast:
+unemp_lambda <- powerTransform(unemp)
+unemp_lambda
+```
+
+Así, el mejor valor será $\lambda{}=-0.02129048$. Como lambda es diferente de cero entonces descartamos la transformación por $\ln{X_t}$
+
+```{r}
+# Ahora, aplicamos el el método con el valor de lambda encontrado
+unemp_transf <- BoxCox(unemp, lambda= -0.02129048)
+```
+
+Así, la serie transformada se verá de la siguiente manera:
+
+```{r}
+unemp_transf %>% plot(main = "Serie transformada", las = 1)
+```
+
+Notemos el comportamiento de la varianza con la tranformación, para eso diferenciamos la serie tranformada:
+
+```{r}
+plot.ts(diff(unemp_transf))
+```
+
+Se puede apreciar una mejoría en varianza y media, la cual se mueve alrededor de 0.
+
+### c) Orden de diferenciación e identificación del modelo:
+
+En este caso, seleccionaremos el modelo transformado para trabajar.
+
+```{r}
+acf(unemp_transf, type ="correlation")
+```
+
+Notemos un comportamiento que decrece lentamente, lo cual nos indica que es necesario aplicar diferencias. Ahora, con la función ndiffs(), consultaremos cuáles son las diferencias recomendadas:
+
+```{r}
+ndiffs(unemp_transf)
+```
+
+Así, las diferencias necesarias para que el proceso sea estacionario es de 1 diferencia. Por lo que tenemos un proceso Integrado de orden 1.
+
+Así, el ACF y el PACF se verían de la siguiente manera:
+
+```{r}
+## ACF:
+acf(diff(unemp_transf), lag.max=10, ylim=c(-1,1))
+```
+
+```{r}
+#PACF:
+pacf(diff(unemp_transf), lag.max=10, ylim=c(-1,1))
+```
+
+Ahora, verifiquemos con el test de Dickey-Fuller que la serie diferenciada sí sea estacionaria:
+
+```{r}
+serie_transf <- diff(unemp_transf)
+adf.test(serie_transf)
+```
+
+Por lo que, antes el juego de hipótesis:
+
+$$
+H_0:\text{La serie tiene al menos una raíz unitaria (No estacionaria)}\\\hspace{0.5cm}vs.\\\hspace{0.5cm}H_1:\text{La serie no tiene raíces unitarias (Estacionaria)}
+$$
+
+Rechazamos con seguridad la hipótesis nula y aceptamos la alternativa. Por lo que concluimos que la serie tranformada y diferenciada es estacionaria y podemos trabajar con dicho modelo.
+
+Así, el orden del modelo seleccionado será:
+
+```{r}
+modelo_con <- auto.arima(serie_transf)
+modelo_con
+```
+
+ARIMA (2, 0, 2).
+
+Así, el modelo ARIMA (2, 0, 2) indica que el modelo consta de un polinomio autorregresivo de orden 2, de una diferenciación en la variable de estudio $Z_t$ de orden 0, y de un polinomio de promedios móviles de orden 2. Cabe recalcar que el modelo ha sido diferenciado anteriormente y estamos tomando dicho modelo diferenciado.
+
+### d) Estimación de parámetros y diagnóstico de residuales del modelo seleccionado:
+
+Haremos un comparativo entre el modelo sin transforma y el modelo transformado.
+
+Usando la función auto.arima del paquete forecast para la serie sin transformar:
+
+```{r}
+modelo_sin <- auto.arima(unemp)
+modelo_sin
+```
+
+Analizando los residuales del modelo sin transformar:
+
+```{r}
+modelo_sin %>% checkresiduals()
+```
+
+```{r}
+modelo_sin$residuals %>% qqnorm()
+modelo_sin$residuals %>% qqline() 
+```
+
+Realizando prueba de Shapiro-Wilk para normalidad del modelo sin transformar:
+
+```{r}
+modelo_sin$residuals %>% shapiro.test()
+```
+
+Ahora, comprobemos lo mismo para el modelo transformado:
+
+```{r}
+##arima(serie_transf, order=c(2, 0, 2))
+modelo_con <- auto.arima(serie_transf)
+modelo_con
+```
+
+Analizando los residuales del modelo transformado:
+
+```{r}
+modelo_con %>% checkresiduals(lag = 25)
+```
+
+**H~0~:** Los datos se distribuyen de forma independiente (es decir, las correlaciones en la población de la que se toma la muestra son 0, de modo que cualquier correlación observada en los datos es el resultado de la aleatoriedad del proceso de muestreo).
+
+**H~a~:** Los datos no se distribuyen de forma independiente.
+
+```{r}
+modelo_con$residuals %>% qqnorm()
+modelo_con$residuals %>% qqline() 
+```
+
+#### Intento con modelo multiplicativo
+
+```{r}
+## INTENTO, NO OLVIDAR QUITAR EN CASO TAL
+mod1 <- decompose(unemp, type = "mult")
+plot(mod1$trend)
+datos <- mod1$x
+```
+
+## Punto 2:
+
+### Pronóstico para los últimos 12 meses.
+
+```{r}
+pronostico <- forecast(modelo_con,12,level=95)
+
+plot(pronostico, main="Pronóstico para los últimos 12 meses")
+```
+
+Ahora, miremos la matriz de pronósticos para los últimos 12 meses, donde exponemos la media y un intervalo de confianza al 95% de confianza para dichas predicciones:
+
+```{r}
+matriz_pronosticos <-data.frame(pronostico$mean,pronostico$lower,
+                                pronostico$upper)
+matriz_pronosticos
+```
+## Punto 3
+
+```{r}
+
+#view(unemp)
+```
+A continuación, calculamos la previsión a 12 meses con un intervalo de confianza de 0,95 y trazamos el pronóstico junto con los valores reales y ajustados.
+
+```{r}
+hw <- HoltWinters(unemp)
+
+# Obtener los valores óptimos de alpha, beta y gamma
+alpha_optimo <- hw$alpha
+beta_optimo <- hw$beta
+gamma_optimo <- hw$gamma
+
+# Imprimir los valores óptimos
+cat("Alpha óptimo:", alpha_optimo, "\n")
+cat("Beta óptimo:", beta_optimo, "\n")
+cat("Gamma óptimo:", gamma_optimo, "\n")
+
+# Realizar el pronóstico
+forecast <- predict(hw, n.ahead = 12, prediction.interval = TRUE, level = 0.95)
+
+# Visualizar los resultados
+plot(hw, forecast)
+```
+Podemos observar que los valores de $\alpha$ óptimo: 0.8590901, $\beta$ óptimo: 0.07395703, $\gamma$ óptimo: 1.
+
+
+```{r}
+forecast <- forecast(hw, h = 12)
+error <- accuracy(forecast)[2]
+cat("Minimum Error:", error, "\n")
+print(forecast)
+
+```
+En promedio, los pronósticos realizados por el modelo Holt-Winters difieren de los valores reales en aproximadamente 24.2834 unidades.
+
+
+
+## Punto 4
+
+Ahora, para comparar el pronostico transformado y el pronostico utilizando Holt-winters, se realiza un summary en donde se arrojen los pronosticos RMSE, MAE Y MAPE, las cuales ayudaran a la hora de evaluar cual es mas preciso en terminos de error absoluto y error relativo. 
+
+a continuacion, los datos del pronostico transformado:
+
+```{r}
+summary(pronostico)
+```
+
+luego, los datos del pronostico utilizando Holt-winters
+
+```{r}
+summary(forecast)
+```
+
+Resultado para el pronostico transformado incialmente
+RMSE= 0,05231761, MAE= 0,03932498, MAPE= 144,5645
+
+Resultado para el pronostico utilizando Holt-winters
+RMSE= 24,28341, MAE= 19,04696, MAPE=5.344272
+
+según los datos arrojados para ambos pronosticos, el que resulta ser mas preciso es el pronostico con transformación inicialmente propuesto, pues el RMSE, el MAE y el MAPE son menores y es considerado mas preciso en terminos de estimacion del valor real  en comparacion al pronostico Holt- Winters, es por esa razon, que se decide seguir utilizando el modelo inicial. 
+
+
+# Taller 4
+
+```{r}
+library(forecast)
+datos <- read.csv("../../Trabajo 2/Trabajo2/Serie01_We_02_W6.csv", sep = ";")
+datos_ts = ts(datos) # Conversión a serie de tiempo
+mod1_CSS_ML=Arima(datos_ts, c(0, 1, 1), include.drift=TRUE, lambda=.43, method = c("CSS-ML"))
+datos_ts = ts(datos^.43)
+```
+
+## Punto A
+
+```{r}
+library(tsoutliers)
+tso(datos_ts)
+```
+
+Se detectan outliers de tipo AO, TC Y LS
+
+
+## Punto B
+
+```{r}
+modT4 <- tso(datos_ts)
+plot.tsoutliers(modT4)
+```
+
+
+Se notan alguno cambios bruscos y pareciera que tuvieran una duracion permante en la serie los outliers, ya que estos no coinciden en la tendencia y en la variabilidad de la misma, estos datos atípicos se ven que influencia la serie en la parte final donde se concentran un poco más estos.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

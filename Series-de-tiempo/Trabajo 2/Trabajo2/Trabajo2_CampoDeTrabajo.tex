@@ -1,0 +1,766 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Trabajo 2 - Series de tiempo},
+  pdfauthor={Julián Saavedra},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Trabajo 2 - Series de tiempo}
+\author{Julián Saavedra}
+\date{2023-05-27}
+
+\begin{document}
+\maketitle
+
+\hypertarget{trabajo-2---series-de-tiempo}{%
+\section{Trabajo 2 - Series de
+tiempo}\label{trabajo-2---series-de-tiempo}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching packages --------------------------------------- tidyverse 1.3.2 --
+## v tibble  3.1.8     v dplyr   1.1.0
+## v tidyr   1.2.0     v stringr 1.4.1
+## v readr   2.1.2     v forcats 0.5.2
+## v purrr   0.3.4     
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(car)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: carData
+## 
+## Attaching package: 'car'
+## 
+## The following object is masked from 'package:dplyr':
+## 
+##     recode
+## 
+## The following object is masked from 'package:purrr':
+## 
+##     some
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(lmtest)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: zoo
+## 
+## Attaching package: 'zoo'
+## 
+## The following objects are masked from 'package:base':
+## 
+##     as.Date, as.Date.numeric
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Series: }
+\FunctionTok{library}\NormalTok{(tseries)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Registered S3 method overwritten by 'quantmod':
+##   method            from
+##   as.zoo.data.frame zoo
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(quantmod)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: xts
+## 
+## Attaching package: 'xts'
+## 
+## The following objects are masked from 'package:dplyr':
+## 
+##     first, last
+## 
+## Loading required package: TTR
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(foreign)}
+\FunctionTok{library}\NormalTok{(astsa)}
+\FunctionTok{library}\NormalTok{(forecast)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'forecast'
+## 
+## The following object is masked from 'package:astsa':
+## 
+##     gas
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(urca)}
+\FunctionTok{library}\NormalTok{(fUnitRoots)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'fUnitRoots'
+## 
+## The following objects are masked from 'package:urca':
+## 
+##     punitroot, qunitroot, unitrootTable
+\end{verbatim}
+
+\hypertarget{punto-a.}{%
+\section{Punto A.}\label{punto-a.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{datos }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"Serie01\_We\_02\_W6.csv"}\NormalTok{, }\AttributeTok{sep =} \StringTok{";"}\NormalTok{)}
+\NormalTok{datos\_ts }\OtherTok{=} \FunctionTok{ts}\NormalTok{(datos) }\CommentTok{\# Conversión a serie de tiempo}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{introducciuxf3n}{%
+\subsection{Introducción:}\label{introducciuxf3n}}
+
+Como siempre, debemos hacer un primer acercamiento a los datos, mirar de
+qué forma se comportan para así identificar el proceso a seguir. Así, la
+grafica de los datos se presenta a continuación:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Primera vista graficamente de los datos: }
+\FunctionTok{plot}\NormalTok{(datos\_ts, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{main =} \StringTok{"Serie"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Z\_t"}\NormalTok{, }\AttributeTok{type =} \StringTok{"o"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo2_CampoDeTrabajo_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+\hypertarget{primeras-observaciones}{%
+\subsection{Primeras observaciones:}\label{primeras-observaciones}}
+
+\begin{itemize}
+\item
+  No se trata de un proceso estacionario.
+\item
+  Parece ser un proceso integrado, es decir que los valores de la serie
+  de tiempo parecen estar relacionados entre sí
+\item
+  la varianza de la series no es homogénea y si diferenciamos esto se
+  verá más evidente:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot.ts}\NormalTok{(}\FunctionTok{diff}\NormalTok{(datos\_ts), }\AttributeTok{ylab =} \StringTok{"Z\_(t){-}Z{-}(t{-}1)"}\NormalTok{, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }
+        \AttributeTok{main =} \StringTok{"Serie original diferenciada"}\NormalTok{, }\AttributeTok{type =} \StringTok{"o"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo2_CampoDeTrabajo_files/figure-latex/unnamed-chunk-4-1.pdf}
+\#\# Transformación Box-Cox
+
+Observamos que efectivamente estamos ante un caso donde la varianza NO
+es homogenea.
+
+Como la varianza de la serie no es homogénea, se estimará ``Lambda'' de
+la transformación Box-Cox.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\AttributeTok{tBoxCox=}\FunctionTok{powerTransform}\NormalTok{(datos\_ts))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Estimated transformation parameter 
+##  datos_ts 
+## 0.7496944
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(tBoxCox)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## bcPower Transformation to Normality 
+##          Est Power Rounded Pwr Wald Lwr Bnd Wald Upr Bnd
+## datos_ts    0.7497           1       0.3633       1.1361
+## 
+## Likelihood ratio test that transformation parameter is equal to 0
+##  (log transformation)
+##                            LRT df       pval
+## LR test, lambda = (0) 16.24151  1 5.5759e-05
+## 
+## Likelihood ratio test that no transformation is needed
+##                            LRT df    pval
+## LR test, lambda = (1) 1.551829  1 0.21287
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{BoxCox.lambda}\NormalTok{(datos\_ts, }\AttributeTok{method=}\FunctionTok{c}\NormalTok{(}\StringTok{"guerrero"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.4348836
+\end{verbatim}
+
+Se selecciona la estimacion de lambda del metododo ``guerrero'' el cual
+es aproximadamente 0.435
+
+Vamos entonces a transformar la serie, utilizando la raíz cuarta:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot.ts}\NormalTok{(datos\_ts}\SpecialCharTok{\^{}}\NormalTok{(.}\DecValTok{43}\NormalTok{) ,}\AttributeTok{main =} \StringTok{" Serie transformada"}\NormalTok{,}\AttributeTok{ylab =} \StringTok{"X\_t"}\NormalTok{, }\AttributeTok{xlab =} \StringTok{"time"}\NormalTok{, }\AttributeTok{type =} \StringTok{"o"}\NormalTok{,}\AttributeTok{col=}\StringTok{\textquotesingle{}blue\textquotesingle{}}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{1}\NormalTok{ )}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo2_CampoDeTrabajo_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+Con esto el problema de la varianza mejora con relación al primer
+observamiento que se le hizo a la serie, para observar esta mejoría
+diferenciemos la transformación y note esto mismo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot.ts}\NormalTok{(}\FunctionTok{diff}\NormalTok{(datos\_ts}\SpecialCharTok{\^{}}\NormalTok{.}\DecValTok{43}\NormalTok{), }\AttributeTok{ylab =} \StringTok{"Z\_(t){-}Z{-}(t{-}1)"}\NormalTok{, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }
+        \AttributeTok{main =} \StringTok{"Serie transformada diferenciada"}\NormalTok{, }\AttributeTok{type =} \StringTok{"o"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo2_CampoDeTrabajo_files/figure-latex/unnamed-chunk-9-1.pdf}
+Continuaremos usando la transformación de la serie como si fuera la
+serie original usando lambda de 0.43, ahora vamos a graficar los
+correlogramas para buscar evidencia para diferenciar la serie.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{Acf}\NormalTok{(datos\_ts}\SpecialCharTok{\^{}}\FloatTok{0.43}\NormalTok{, }\AttributeTok{lag.max=}\DecValTok{30}\NormalTok{, }\AttributeTok{ci=}\DecValTok{0}\NormalTok{,}\AttributeTok{ylim=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo2_CampoDeTrabajo_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{pacf}\NormalTok{(datos\_ts}\SpecialCharTok{\^{}}\FloatTok{0.43}\NormalTok{, }\AttributeTok{lag.max=}\DecValTok{30}\NormalTok{, }\AttributeTok{ylim=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo2_CampoDeTrabajo_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Calcular la ESACF}
+\NormalTok{esacf\_result }\OtherTok{\textless{}{-}}\NormalTok{ stats}\SpecialCharTok{::}\FunctionTok{acf}\NormalTok{(datos\_ts}\SpecialCharTok{\^{}}\FloatTok{0.43}\NormalTok{, }\AttributeTok{plot =} \ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(esacf\_result, }\AttributeTok{main =} \StringTok{"Función de Autocorrelación Muestral Extendida (ESACF)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo2_CampoDeTrabajo_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+En la ACF se demora mucho en caer y en la PACF tiene un pico alto en el
+primer rezago, esto es una evidencia de que la serie necesite ser
+diferenciada (Más adelante se corroborará esto con la prueba de raíces
+unitarias).
+
+El modelo que propongo por ahora es un ARIMA(p,1,q) porque a simple
+vista la tendencia es lineal positiva de orden 1, ahora miremos el ACF y
+PACF con la serie diferenciada para proponer un p y q
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{Acf}\NormalTok{(}\FunctionTok{diff}\NormalTok{(datos\_ts}\SpecialCharTok{\^{}}\NormalTok{.}\DecValTok{43}\NormalTok{,}\AttributeTok{lag =} \DecValTok{1}\NormalTok{), }\AttributeTok{lag.max=}\DecValTok{30}\NormalTok{, }\AttributeTok{ci=}\DecValTok{0}\NormalTok{,}\AttributeTok{ylim=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo2_CampoDeTrabajo_files/figure-latex/unnamed-chunk-13-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{pacf}\NormalTok{(}\FunctionTok{diff}\NormalTok{(datos\_ts}\SpecialCharTok{\^{}}\NormalTok{.}\DecValTok{43}\NormalTok{,}\AttributeTok{lag =} \DecValTok{1}\NormalTok{), }\AttributeTok{lag.max=}\DecValTok{30}\NormalTok{, }\AttributeTok{ylim=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo2_CampoDeTrabajo_files/figure-latex/unnamed-chunk-14-1.pdf}
+El análisis de la PACF parece indicar que hay decaimiento exponencial
+tanto en los rezagos no estacionales como estacionales; por su parte la
+ACF señala que hay un corte después del primer rezago.
+
+Por lo anterior el modelo que propongo es un ARIMA(0,1,1)
+
+\hypertarget{punto-b.}{%
+\section{Punto B.}\label{punto-b.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{auto.arima}\NormalTok{(datos\_ts}\SpecialCharTok{\^{}}\FloatTok{0.43}\NormalTok{,}\AttributeTok{max.p=}\DecValTok{5}\NormalTok{,}\AttributeTok{max.q=}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Series: datos_ts^0.43 
+## ARIMA(0,1,1) with drift 
+## 
+## Coefficients:
+##           ma1   drift
+##       -0.6595  0.1102
+## s.e.   0.0823  0.0449
+## 
+## sigma^2 = 1.929:  log likelihood = -196.75
+## AIC=399.5   AICc=399.72   BIC=407.68
+\end{verbatim}
+
+Observe que efectivamente se estima que es un modelo ARIMA(0,1,1)
+
+\hypertarget{punto-c}{%
+\section{Punto C}\label{punto-c}}
+
+De igual manera, realicemos una prueba de Dickey- Fuller para confirmar
+que no hay estacionariedad en la serie original, para esta prueba
+estamos ante el siguiente juego de hipótesis:
+
+Así, se tiene el test:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{adf.test}\NormalTok{(datos\_ts}\SpecialCharTok{\^{}}\FloatTok{0.43}\NormalTok{, }\AttributeTok{alternative =} \StringTok{"stationary"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Augmented Dickey-Fuller Test
+## 
+## data:  datos_ts^0.43
+## Dickey-Fuller = -1.7134, Lag order = 4, p-value = 0.6956
+## alternative hypothesis: stationary
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Como esta serie no es estacionaria debemos convertirla a estacionaria,
+  podemos hacerlo con diferencias o logaritmos. En nuestro caso, vamos a
+  trabajar con diferencias.
+\end{itemize}
+
+Diferenciamos los datos originales y los trabajamos como si fueran los
+datos originales y aplicamos la prueba de Dickey-Fuller
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{adf.test}\NormalTok{(}\FunctionTok{diff}\NormalTok{(datos\_ts}\SpecialCharTok{\^{}}\FloatTok{0.43}\NormalTok{), }\AttributeTok{alternative =} \StringTok{"stationary"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in adf.test(diff(datos_ts^0.43), alternative = "stationary"): p-value
+## smaller than printed p-value
+\end{verbatim}
+
+\begin{verbatim}
+## 
+##  Augmented Dickey-Fuller Test
+## 
+## data:  diff(datos_ts^0.43)
+## Dickey-Fuller = -7.2755, Lag order = 4, p-value = 0.01
+## alternative hypothesis: stationary
+\end{verbatim}
+
+Se observa que la prueba se acepta que la serie es estacionaria por ende
+se comprueba que solo hay una raíz unitaria.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{serie\_transf }\OtherTok{\textless{}{-}}\NormalTok{ datos\_ts}\SpecialCharTok{\^{}}\FloatTok{0.43}
+
+\NormalTok{(}\AttributeTok{maxlag=}\FunctionTok{floor}\NormalTok{(}\DecValTok{12}\SpecialCharTok{*}\NormalTok{(}\FunctionTok{length}\NormalTok{(datos\_ts)}\SpecialCharTok{/}\DecValTok{100}\NormalTok{)}\SpecialCharTok{\^{}}\NormalTok{(}\FloatTok{0.75}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 13
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ru\_tz }\OtherTok{=} \FunctionTok{ur.df}\NormalTok{(serie\_transf, }\AttributeTok{type =} \FunctionTok{c}\NormalTok{(}\StringTok{"trend"}\NormalTok{), }\AttributeTok{lags=}\NormalTok{maxlag, }\AttributeTok{selectlags =} \FunctionTok{c}\NormalTok{(}\StringTok{"BIC"}\NormalTok{))}
+\FunctionTok{summary}\NormalTok{(ru\_tz)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## ############################################### 
+## # Augmented Dickey-Fuller Test Unit Root Test # 
+## ############################################### 
+## 
+## Test regression trend 
+## 
+## 
+## Call:
+## lm(formula = z.diff ~ z.lag.1 + 1 + tt + z.diff.lag)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.0133 -0.6106  0.0747  0.8604  3.3266 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)   
+## (Intercept)  4.95680    1.46923   3.374  0.00107 **
+## z.lag.1     -0.30440    0.09588  -3.175  0.00201 **
+## tt           0.03081    0.01212   2.542  0.01262 * 
+## z.diff.lag  -0.22909    0.10444  -2.194  0.03068 * 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.375 on 96 degrees of freedom
+## Multiple R-squared:  0.238,  Adjusted R-squared:  0.2142 
+## F-statistic: 9.994 on 3 and 96 DF,  p-value: 8.565e-06
+## 
+## 
+## Value of test-statistic is: -3.1749 3.9345 5.4944 
+## 
+## Critical values for test statistics: 
+##       1pct  5pct 10pct
+## tau3 -3.99 -3.43 -3.13
+## phi2  6.22  4.75  4.07
+## phi3  8.43  6.49  5.47
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ru\_tz}\OtherTok{=}\FunctionTok{ur.df}\NormalTok{(serie\_transf, }\AttributeTok{type =} \FunctionTok{c}\NormalTok{(}\StringTok{"trend"}\NormalTok{), }\AttributeTok{lags=}\NormalTok{maxlag, }\AttributeTok{selectlags =} \FunctionTok{c}\NormalTok{(}\StringTok{"AIC"}\NormalTok{))}
+\FunctionTok{summary}\NormalTok{(ru\_tz)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## ############################################### 
+## # Augmented Dickey-Fuller Test Unit Root Test # 
+## ############################################### 
+## 
+## Test regression trend 
+## 
+## 
+## Call:
+## lm(formula = z.diff ~ z.lag.1 + 1 + tt + z.diff.lag)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.0133 -0.6106  0.0747  0.8604  3.3266 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)   
+## (Intercept)  4.95680    1.46923   3.374  0.00107 **
+## z.lag.1     -0.30440    0.09588  -3.175  0.00201 **
+## tt           0.03081    0.01212   2.542  0.01262 * 
+## z.diff.lag  -0.22909    0.10444  -2.194  0.03068 * 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.375 on 96 degrees of freedom
+## Multiple R-squared:  0.238,  Adjusted R-squared:  0.2142 
+## F-statistic: 9.994 on 3 and 96 DF,  p-value: 8.565e-06
+## 
+## 
+## Value of test-statistic is: -3.1749 3.9345 5.4944 
+## 
+## Critical values for test statistics: 
+##       1pct  5pct 10pct
+## tau3 -3.99 -3.43 -3.13
+## phi2  6.22  4.75  4.07
+## phi3  8.43  6.49  5.47
+\end{verbatim}
+
+\hypertarget{punto-d.}{%
+\section{punto D.}\label{punto-d.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod1\_CSS\_ML}\OtherTok{=}\FunctionTok{Arima}\NormalTok{(datos\_ts, }\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{include.drift=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{lambda=}\NormalTok{.}\DecValTok{43}\NormalTok{, }\AttributeTok{method =} \FunctionTok{c}\NormalTok{(}\StringTok{"CSS{-}ML"}\NormalTok{))}
+\FunctionTok{summary}\NormalTok{(mod1\_CSS\_ML)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Series: datos_ts 
+## ARIMA(0,1,1) with drift 
+## Box Cox transformation: lambda= 0.43 
+## 
+## Coefficients:
+##           ma1   drift
+##       -0.6595  0.2562
+## s.e.   0.0823  0.1044
+## 
+## sigma^2 = 10.43:  log likelihood = -292.12
+## AIC=590.24   AICc=590.46   BIC=598.42
+## 
+## Training set error measures:
+##                     ME     RMSE      MAE       MPE     MAPE      MASE      ACF1
+## Training set -1.445827 199.3047 144.5044 -1.009664 11.77491 0.9005126 0.1384639
+\end{verbatim}
+
+El modelo con los parametros estimados seria el siguiente:
+
+(1-b)*Zt\^{}0.43 = (I+0.6595b)at + 0.2562
+
+\hypertarget{punto-e}{%
+\subsection{Punto E}\label{punto-e}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{autoplot}\NormalTok{(mod1\_CSS\_ML)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo2_CampoDeTrabajo_files/figure-latex/unnamed-chunk-20-1.pdf}
+Como la raíz está adentro del circulo de unidad quiere decir que la
+serie es estacionaria.
+
+\hypertarget{analuxedsis-de-los-residuales}{%
+\subsubsection{Analísis de los
+residuales}\label{analuxedsis-de-los-residuales}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tsdiag}\NormalTok{(mod1\_CSS\_ML)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo2_CampoDeTrabajo_files/figure-latex/unnamed-chunk-21-1.pdf}
+Fluctúa al rededor de una valor fijo, es decir la media y la varianza
+parece ser constante y segun la ACF el primer rezago esta correlacionado
+consigo mismo obviamente y luego cae cuando se calcula la correlacion
+con los demas rezagos.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{res1\_CSS\_ML}\OtherTok{=}\FunctionTok{residuals}\NormalTok{(mod1\_CSS\_ML)}
+
+\NormalTok{res1\_est}\OtherTok{=}\NormalTok{res1\_CSS\_ML}\SpecialCharTok{/}\NormalTok{(mod1\_CSS\_ML}\SpecialCharTok{$}\NormalTok{sigma2}\SpecialCharTok{\^{}}\FloatTok{0.5}\NormalTok{)}
+\FunctionTok{plot.ts}\NormalTok{(res1\_est, }\AttributeTok{type=}\StringTok{"o"}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{a=}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, }\AttributeTok{b=}\DecValTok{0}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{a=}\DecValTok{3}\NormalTok{, }\AttributeTok{b=}\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo2_CampoDeTrabajo_files/figure-latex/unnamed-chunk-22-1.pdf}
+
+Con el grafico anterior corrobaramos lo anterior dicho.
+
+Bajo la hipótesis de normalidad el número esperado A de observaciones
+atípicas es:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\AttributeTok{Nobs\_Esp=}\FunctionTok{round}\NormalTok{(}\FunctionTok{length}\NormalTok{(datos\_ts)}\SpecialCharTok{*}\DecValTok{2}\SpecialCharTok{*}\FunctionTok{pnorm}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, }\AttributeTok{mean =} \DecValTok{0}\NormalTok{, }\AttributeTok{sd =} \DecValTok{1}\NormalTok{, }\AttributeTok{lower.tail =} \ConstantTok{TRUE}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+Se detectan las observaciones atípicas
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ind}\OtherTok{=}\NormalTok{(}\FunctionTok{abs}\NormalTok{(res1\_est)}\SpecialCharTok{\textgreater{}}\FloatTok{3.0}\NormalTok{)}
+\FunctionTok{sum}\NormalTok{(ind)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+Se verifica la normalidad de los residuales con un q-q plot
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qqnorm}\NormalTok{(res1\_est, }\AttributeTok{xlab =} \StringTok{"Cuantiles Te?ricos"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Cuantiles Muestrales"}\NormalTok{,}
+\AttributeTok{xlim=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{), }\AttributeTok{ylim=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{))}
+\FunctionTok{qqline}\NormalTok{(res1\_est)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo2_CampoDeTrabajo_files/figure-latex/unnamed-chunk-25-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{shapiro.test}\NormalTok{(res1\_est)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Shapiro-Wilk normality test
+## 
+## data:  res1_est
+## W = 0.97458, p-value = 0.02857
+\end{verbatim}
+
+No se cumple el test de normalidad de Shapiro-Wilk y esto se corrobora
+con la gráfica donde los cuantiles Teóricos no contienen bien a los
+cuantiles Muéstrales, por tanto no se puede hacer observaciones de los
+datos atipicos con la distribución normal.
+
+\hypertarget{punto-f}{%
+\section{Punto F}\label{punto-f}}
+
+\hypertarget{la-tendencia-de-la-serie-posee-componentes-deterministica-y-aleatoria-solo-una-de-ellas-cuxfaal-o-ambas.}{%
+\subsection{¿La tendencia de la serie posee componentes deterministica y
+aleatoria, solo una de ellas (cúal) o
+ambas?.}\label{la-tendencia-de-la-serie-posee-componentes-deterministica-y-aleatoria-solo-una-de-ellas-cuxfaal-o-ambas.}}
+
+Las componentes de una serie temporal pueden ser de naturaleza
+determinista o aleatoria. En el caso de la tendencia de la serie
+analizada y la forma en que se integra, se determina que se trata de una
+serie con componentes aleatorios y al mismo tiempo deterministicos, pues
+se utilizan modelos autorregresivos- medias moviles para el modelamiento
+en la serie temporal, ademas de ser no estacionario y tener la presencia
+de una raiz unitaria en el componente autorregresivo del proceso
+generado,
+
+\hypertarget{el-proceso-adecuado-para-modelar-la-serie-se-trata-de-un-proceso-estacionario-en-tendencia-o-un-proceso-de-diferencias-estacionarias}{%
+\subsection{¿El proceso adecuado para modelar la serie se trata de un
+proceso estacionario en tendencia o un proceso de diferencias
+estacionarias?}\label{el-proceso-adecuado-para-modelar-la-serie-se-trata-de-un-proceso-estacionario-en-tendencia-o-un-proceso-de-diferencias-estacionarias}}
+
+El proceso adecuado para modelar la serie se trata de un proceso de
+diferencias estacionarias, pues la serie de tiempo muestra una
+variabilidad que cambia a lo largo del tiempo, siendo un proceso no
+estacionario cuya no estacionaridad esta motivada por la presencia de
+raices unitarias.
+
+\end{document}

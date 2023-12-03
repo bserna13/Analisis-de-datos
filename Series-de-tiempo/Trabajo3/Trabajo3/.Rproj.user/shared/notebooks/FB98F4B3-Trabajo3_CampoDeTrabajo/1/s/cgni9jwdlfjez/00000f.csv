@@ -1,0 +1,3 @@
+"0","matriz_pronosticos <-data.frame(pronostico$mean,pronostico$lower,"
+"0","                                pronostico$upper)"
+"0","matriz_pronosticos"

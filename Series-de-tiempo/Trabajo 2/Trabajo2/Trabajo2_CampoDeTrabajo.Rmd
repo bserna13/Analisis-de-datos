@@ -1,0 +1,248 @@
+---
+title: "Trabajo 2 - Series de tiempo"
+author: "Julián Saavedra"
+date: "2023-05-27"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Trabajo 2 - Series de tiempo
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+library(car)
+library(lmtest)
+# Series: 
+library(tseries)
+library(quantmod)
+library(foreign)
+library(astsa)
+library(forecast)
+library(urca)
+library(fUnitRoots)
+```
+
+# Punto A.
+
+```{r}
+datos <- read.csv("Serie01_We_02_W6.csv", sep = ";")
+datos_ts = ts(datos) # Conversión a serie de tiempo
+```
+
+## Introducción:
+
+Como siempre, debemos hacer un primer acercamiento a los datos, mirar de qué forma se comportan para así identificar el proceso a seguir. Así, la grafica de los datos se presenta a continuación:
+
+```{r}
+# Primera vista graficamente de los datos: 
+plot(datos_ts, col = "blue", main = "Serie", ylab = "Z_t", type = "o")
+```
+
+## Primeras observaciones: 
+
+- No se trata de un proceso estacionario.
+
+- Parece ser un proceso integrado, es decir que los valores de la serie de tiempo parecen estar relacionados entre sí 
+
+- la varianza de la series no es homogénea y si diferenciamos esto se verá más evidente:
+
+
+```{r}
+plot.ts(diff(datos_ts), ylab = "Z_(t)-Z-(t-1)", col = "blue", 
+        main = "Serie original diferenciada", type = "o")
+```
+## Transformación Box-Cox
+
+Observamos que efectivamente estamos ante un caso donde la varianza NO es homogenea.
+
+Como la varianza de la serie no es homogénea, se estimará "Lambda" de la transformación Box-Cox.
+
+```{r}
+(tBoxCox=powerTransform(datos_ts))
+```
+```{r}
+summary(tBoxCox)
+```
+
+
+```{r}
+BoxCox.lambda(datos_ts, method=c("guerrero"))
+```
+Se selecciona la estimacion de lambda del metododo "guerrero" el cual es aproximadamente 0.435
+
+
+
+Vamos entonces a transformar la serie, utilizando la raíz cuarta:
+
+```{r}
+plot.ts(datos_ts^(.43) ,main = " Serie transformada",ylab = "X_t", xlab = "time", type = "o",col='blue', lwd = 1 )
+```
+
+Con esto el problema de la varianza mejora con relación al primer observamiento que se le hizo a la serie, para observar esta mejoría diferenciemos la transformación y note esto mismo:
+
+```{r}
+plot.ts(diff(datos_ts^.43), ylab = "Z_(t)-Z-(t-1)", col = "blue", 
+        main = "Serie transformada diferenciada", type = "o")
+```
+Continuaremos usando la transformación de la serie como si fuera la serie original usando lambda de 0.43, ahora vamos a graficar los correlogramas para buscar evidencia para diferenciar la serie.
+
+```{r}
+Acf(datos_ts^0.43, lag.max=30, ci=0,ylim=c(-1,1))
+```
+```{r}
+pacf(datos_ts^0.43, lag.max=30, ylim=c(-1,1))
+```
+
+```{r}
+# Calcular la ESACF
+esacf_result <- stats::acf(datos_ts^0.43, plot = FALSE)
+plot(esacf_result, main = "Función de Autocorrelación Muestral Extendida (ESACF)")
+```
+
+
+En la ACF se demora mucho en caer y en la PACF tiene un pico alto en el primer rezago, esto es una evidencia de que la serie necesite ser diferenciada (Más adelante se corroborará esto con la prueba de raíces unitarias).
+
+El modelo que propongo por ahora es un ARIMA(p,1,q) porque a simple vista la tendencia es lineal positiva de orden 1, ahora miremos el ACF y PACF con la serie diferenciada para proponer un p y q
+
+```{r}
+Acf(diff(datos_ts^.43,lag = 1), lag.max=30, ci=0,ylim=c(-1,1))
+```
+
+```{r}
+pacf(diff(datos_ts^.43,lag = 1), lag.max=30, ylim=c(-1,1))
+```
+El análisis de la PACF parece indicar que hay decaimiento exponencial
+tanto en los rezagos no estacionales como estacionales; por su parte la ACF señala
+que hay un corte después del primer rezago.
+
+Por lo anterior el modelo que propongo es un ARIMA(0,1,1)
+
+
+# Punto B.
+
+```{r}
+auto.arima(datos_ts^0.43,max.p=5,max.q=5)
+```
+Observe que efectivamente se estima que es un modelo ARIMA(0,1,1)
+
+
+# Punto C
+
+De igual manera, realicemos una prueba de Dickey- Fuller para confirmar que no hay estacionariedad en la serie original, para esta prueba estamos ante el siguiente juego de hipótesis:
+
+$$H_0:\text{La serie no es estacionaria}\hspace{0.5cm}vs.\hspace{0.5cm}H_1:\text{La serie es estacionaria}$$
+
+Así, se tiene el test:
+
+```{r}
+adf.test(datos_ts^0.43, alternative = "stationary")
+```
+No se rechazar $$H_0$$, ya que $$\alpha=0.05<p-value=0.6956$$ y esto significa que existe una o más raíces unitarias en la serie.
+
+
+- Como esta serie no es estacionaria debemos convertirla a estacionaria, podemos hacerlo con diferencias o logaritmos. En nuestro caso, vamos a trabajar con diferencias.
+
+Diferenciamos los datos originales y los trabajamos como si fueran los datos originales y aplicamos la prueba de Dickey-Fuller
+
+```{r}
+adf.test(diff(datos_ts^0.43), alternative = "stationary")
+```
+Se observa que la prueba se acepta que la serie es estacionaria por ende se comprueba que solo hay una raíz unitaria.
+
+
+```{r}
+serie_transf <- datos_ts^0.43
+
+(maxlag=floor(12*(length(datos_ts)/100)^(0.75)))
+
+ru_tz = ur.df(serie_transf, type = c("trend"), lags=maxlag, selectlags = c("BIC"))
+summary(ru_tz)
+
+ru_tz=ur.df(serie_transf, type = c("trend"), lags=maxlag, selectlags = c("AIC"))
+summary(ru_tz)
+```
+
+# punto D.
+
+```{r}
+mod1_CSS_ML=Arima(datos_ts, c(0, 1, 1), include.drift=TRUE, lambda=.43, method = c("CSS-ML"))
+summary(mod1_CSS_ML)
+```
+El modelo con los parametros estimados seria el siguiente:
+
+(1-b)*Zt^0.43 = (I+0.6595b)at + 0.2562
+
+
+## Punto E
+
+
+```{r}
+autoplot(mod1_CSS_ML)
+```
+Como la raíz está adentro del circulo de unidad quiere decir que la serie es estacionaria.
+
+### Analísis de los residuales
+
+```{r}
+tsdiag(mod1_CSS_ML)
+```
+Fluctúa al rededor de una valor fijo, es decir la media y la varianza parece ser constante y segun la ACF el primer rezago esta correlacionado consigo mismo obviamente y luego cae cuando se calcula la correlacion con los demas rezagos.
+
+```{r}
+res1_CSS_ML=residuals(mod1_CSS_ML)
+
+res1_est=res1_CSS_ML/(mod1_CSS_ML$sigma2^0.5)
+plot.ts(res1_est, type="o")
+abline(a=-3, b=0)
+abline(a=3, b=0)
+```
+
+Con el grafico anterior corrobaramos lo anterior dicho.
+
+Bajo la hipótesis de normalidad el número esperado A de observaciones atípicas es:
+
+```{r}
+(Nobs_Esp=round(length(datos_ts)*2*pnorm(-3, mean = 0, sd = 1, lower.tail = TRUE)))
+```
+Se detectan las observaciones atípicas
+```{r}
+ind=(abs(res1_est)>3.0)
+sum(ind)
+```
+Se verifica la normalidad de los residuales con un q-q plot
+```{r}
+qqnorm(res1_est, xlab = "Cuantiles Te?ricos", ylab = "Cuantiles Muestrales",
+xlim=c(-4,4), ylim=c(-4,4))
+qqline(res1_est)
+```
+
+```{r}
+shapiro.test(res1_est)
+```
+
+
+No se cumple el test de normalidad de Shapiro-Wilk y esto se corrobora con la gráfica donde los cuantiles Teóricos no contienen bien a los cuantiles Muéstrales, por tanto no se puede hacer observaciones de los datos atipicos con la distribución normal.
+
+
+# Punto F
+## ¿La tendencia de la serie posee componentes deterministica y aleatoria, solo una de ellas (cúal) o ambas?.
+
+Las componentes de una serie temporal pueden ser de naturaleza determinista o aleatoria. En el caso de la tendencia de la serie analizada y la forma en que se integra, se determina que se trata de una serie con componentes aleatorios y al mismo tiempo deterministicos, pues se utilizan modelos autorregresivos- medias moviles para el modelamiento en la serie temporal, ademas de ser no estacionario y tener la presencia de una raiz unitaria en el componente autorregresivo del proceso generado, 
+
+## ¿El proceso adecuado para modelar la serie se trata de un proceso estacionario en tendencia o un proceso de diferencias estacionarias?
+
+
+El proceso adecuado para modelar la serie se trata de un proceso de diferencias estacionarias, pues  la serie de tiempo muestra una variabilidad que cambia a lo largo del tiempo, siendo un proceso no estacionario cuya no estacionaridad esta motivada por la presencia de raices unitarias. 
+
+
+
+
+
+
+
+
+

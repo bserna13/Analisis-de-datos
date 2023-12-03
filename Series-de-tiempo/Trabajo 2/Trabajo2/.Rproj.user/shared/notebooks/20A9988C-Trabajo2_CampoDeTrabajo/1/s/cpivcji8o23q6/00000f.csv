@@ -1,0 +1,4 @@
+"0","# busqueda ""automática"""
+"0","cheq=Arima(resid, c(0,0,0), include.constant=TRUE)"
+"0",""
+"0","tsdiag(cheq, gof.lag=15)"

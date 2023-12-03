@@ -1,0 +1,504 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Trabajo1},
+  pdfauthor={None},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Trabajo1}
+\author{None}
+\date{2023-03-17}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Cargue de paquetes:}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(hrbrthemes)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## NOTE: Either Arial Narrow or Roboto Condensed fonts are required to use these themes.
+\end{verbatim}
+
+\begin{verbatim}
+##       Please use hrbrthemes::import_roboto_condensed() to install Roboto Condensed and
+\end{verbatim}
+
+\begin{verbatim}
+##       if Arial Narrow is not on your system, please see https://bit.ly/arialnarrow
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(forecast)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Registered S3 method overwritten by 'quantmod':
+##   method            from
+##   as.zoo.data.frame zoo
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tseries)}
+\FunctionTok{library}\NormalTok{(TTR)}
+\FunctionTok{library}\NormalTok{(stats)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{punto-1}{%
+\subsection{Punto 1:}\label{punto-1}}
+
+\hypertarget{literal-a}{%
+\subsection{Literal a:}\label{literal-a}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Cargue de base de datos: }
+\NormalTok{generador }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(cedula)\{}
+\FunctionTok{set.seed}\NormalTok{(cedula)}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+\NormalTok{data}
+\NormalTok{\}}
+\NormalTok{times }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{100}\NormalTok{)}
+\NormalTok{values }\OtherTok{\textless{}{-}} \FunctionTok{generador}\NormalTok{(}\DecValTok{1007396943}\NormalTok{)}
+\NormalTok{Datos }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(times,values)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{literal-b}{%
+\subsection{Literal b:}\label{literal-b}}
+
+\hypertarget{funciuxf3n-de-autocorrelaciuxf3n-acf}{%
+\subsubsection{Función de autocorrelación
+ACF:}\label{funciuxf3n-de-autocorrelaciuxf3n-acf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Calculemos los primeros 6 valores del ACF para identificar el comportamiento:}
+\NormalTok{vals\_acf }\OtherTok{\textless{}{-}} \FunctionTok{acf}\NormalTok{(Datos}\SpecialCharTok{$}\NormalTok{values, }\AttributeTok{lag.max =} \DecValTok{6}\NormalTok{, }\AttributeTok{plot =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{vals\_acf}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Autocorrelations of series 'Datos$values', by lag
+## 
+##      0      1      2      3      4      5      6 
+##  1.000  0.023  0.081  0.182  0.026 -0.026  0.060
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Será mucho más fácil visualizar los datos de las ACF muestrales:}
+\FunctionTok{acf}\NormalTok{(Datos}\SpecialCharTok{$}\NormalTok{values, }\AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{0.2}\NormalTok{,}\DecValTok{1}\NormalTok{), }\AttributeTok{col=}\StringTok{"2"}\NormalTok{, }\AttributeTok{main =} \StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo1_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\hypertarget{funciuxf3n-de-autocorrelaciuxf3n-parcial-pacf}{%
+\subsubsection{Función de autocorrelación parcial
+PACF:}\label{funciuxf3n-de-autocorrelaciuxf3n-parcial-pacf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Calculemos los primeros 6 valores del PACF}
+\NormalTok{vals\_pacf }\OtherTok{\textless{}{-}} \FunctionTok{pacf}\NormalTok{(Datos}\SpecialCharTok{$}\NormalTok{values, }\AttributeTok{lag.max =} \DecValTok{6}\NormalTok{, }\AttributeTok{plot =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{vals\_pacf}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Partial autocorrelations of series 'Datos$values', by lag
+## 
+##      1      2      3      4      5      6 
+##  0.023  0.081  0.180  0.015 -0.057  0.025
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Graficamente para la PACF:}
+\FunctionTok{pacf}\NormalTok{(Datos}\SpecialCharTok{$}\NormalTok{values, }\AttributeTok{col=}\StringTok{"2"}\NormalTok{, }\AttributeTok{main =} \StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo1_files/figure-latex/unnamed-chunk-6-1.pdf}
+
+Puede notarse, por la gráfica de Autocorrelación Simple, que estamos
+ante un proceso de media movil de orden 1 MA(1). Esto se debe a que para
+k = 0 la correlación es igual a 1 y, se observa que la ACF se corta
+abruptamente después de el primer rezago.
+
+\hypertarget{punto-2}{%
+\section{Punto 2:}\label{punto-2}}
+
+Suponiendo que los datos del punto anterior corresponden a una
+realización de un proceso de ruido blanco, se tiene que: Nota:
+Renombremos a p como theta1
+
+\hypertarget{literal-a-1}{%
+\subsection{Literal a:}\label{literal-a-1}}
+
+\hypertarget{primer-proceso-para-ma1-con-correlaciuxf3n-p-0}{%
+\subsubsection{Primer proceso para MA(1) con correlación p
+\textgreater{}
+0:}\label{primer-proceso-para-ma1-con-correlaciuxf3n-p-0}}
+
+\$\$ MA(1): \textbackslash{} Con\hspace{0.2cm}
+\theta\emph{\{1\}=0.6,\hspace{0.1cm}\text{la raíz de } \theta(B)= 1+0.6B
+= 0\text{ es }B=-1.67.\textbackslash{}
+\text{Notemos que }\textbar-1.67\textbar\textgreater1, \textbackslash{}
+\text{Lo que indica que está por fuera del círculo unitario, por lo tanto es invertible.}\textbackslash{}
+\text{Así la ecuación que especifica al modelo está dada por:}\textbackslash{}
+Z}\{t\}=\mu+a\_\{t\}+0.6a\_\{t-1\}
+
+\$\$
+
+\hypertarget{segundo-proceso-para-ma1-con-correlaciuxf3n-p-0}{%
+\subsubsection{Segundo proceso para MA(1) con correlación p \textless{}
+0:}\label{segundo-proceso-para-ma1-con-correlaciuxf3n-p-0}}
+
+\$\$ MA(1): \textbackslash{} Con\hspace{0.2cm}
+\theta\emph{\{1\}=-0.6,\hspace{0.1cm}\text{la raíz de }\theta(B)= 1-0.6B
+= 0\text{ es }B=\frac{1}{0.6}=1.67.\textbackslash{}
+\text{Notemos que }\textbar1.67\textbar\textgreater1, \textbackslash{}
+\text{Lo que indica que está por fuera del círculo unitario, por lo tanto es invertible.}\textbackslash{}
+\text{Así la ecuación que especifica al modelo está dada por:}\textbackslash{}
+Z}\{t\}=\mu+a\_\{t\}-0.6a\_\{t-1\}
+
+\$\$
+
+\hypertarget{comportamiento-de-las-trayectorias}{%
+\subsubsection{Comportamiento de las
+trayectorias:}\label{comportamiento-de-las-trayectorias}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Trayectoria para theta1 = 0.6}
+\NormalTok{vector\_ts }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{100}\NormalTok{)}
+\NormalTok{funcion1 }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(vector\_ts) \{}
+  \FloatTok{0.6}\SpecialCharTok{*}\NormalTok{(Datos}\SpecialCharTok{$}\NormalTok{values[vector\_ts}\DecValTok{{-}1}\NormalTok{])}\SpecialCharTok{+}\NormalTok{Datos}\SpecialCharTok{$}\NormalTok{values[vector\_ts]}
+\NormalTok{\}}
+\NormalTok{proceso1 }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(vector\_ts,funcion1)}
+\NormalTok{grafico1 }\OtherTok{\textless{}{-}} \FunctionTok{plot}\NormalTok{(}\FunctionTok{ts}\NormalTok{(proceso1), }\AttributeTok{xlab =} \StringTok{"Tiempo"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Valores"}\NormalTok{,}
+                 \AttributeTok{main =} \StringTok{"Gráfico para el modelo 1 con p \textgreater{} 0"}\NormalTok{, }
+                 \AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{4.5}\NormalTok{,}\FloatTok{4.5}\NormalTok{))}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{h =} \DecValTok{0}\NormalTok{, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{lty =} \StringTok{"dashed"}\NormalTok{)}
+\FunctionTok{grid}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo1_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Trayectoria para theta1 = {-}0.6}
+\NormalTok{funcion2 }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(vector\_ts) \{}
+  \SpecialCharTok{{-}}\FloatTok{0.6}\SpecialCharTok{*}\NormalTok{(Datos}\SpecialCharTok{$}\NormalTok{values[vector\_ts}\DecValTok{{-}1}\NormalTok{])}\SpecialCharTok{+}\NormalTok{Datos}\SpecialCharTok{$}\NormalTok{values[vector\_ts]}
+\NormalTok{\}}
+\NormalTok{proceso2 }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(vector\_ts,funcion2)}
+\NormalTok{grafico2 }\OtherTok{\textless{}{-}} \FunctionTok{plot}\NormalTok{(}\FunctionTok{ts}\NormalTok{(proceso2), }\AttributeTok{xlab =} \StringTok{"Tiempo"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Valores"}\NormalTok{,}
+                 \AttributeTok{main =} \StringTok{"Gráfico para el modelo 2 con p \textless{} 0"}\NormalTok{,}
+                 \AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{4.5}\NormalTok{,}\FloatTok{4.5}\NormalTok{))}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{h =} \DecValTok{0}\NormalTok{, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{lty =} \StringTok{"dashed"}\NormalTok{)}
+\FunctionTok{grid}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo1_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Comparando ambas graficas: }
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{ts}\NormalTok{(proceso1), }\AttributeTok{xlab =} \StringTok{"Tiempo"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Valores"}\NormalTok{,}
+                 \AttributeTok{main =} \StringTok{"Gráfico para el modelo 1 con p \textgreater{} 0"}\NormalTok{, }
+                 \AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{4.5}\NormalTok{,}\FloatTok{4.5}\NormalTok{), }\AttributeTok{col =} \StringTok{"2"}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{h =} \DecValTok{0}\NormalTok{, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{lty =} \StringTok{"dashed"}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{ts}\NormalTok{(proceso2), }\AttributeTok{xlab =} \StringTok{"Tiempo"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Valores"}\NormalTok{,}
+                 \AttributeTok{main =} \StringTok{"Gráfico para el modelo 2 con p \textless{} 0"}\NormalTok{,}
+                 \AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{4.5}\NormalTok{,}\FloatTok{4.5}\NormalTok{), }\AttributeTok{col =} \StringTok{"2"}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{h =} \DecValTok{0}\NormalTok{, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{lty =} \StringTok{"dashed"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo1_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+Haciendo un paralelo entre las dos series temporales resultantes notamos
+que el comportamiento del modelo con p\textless0 (proceso2) es mejor que
+para el modelo con p\textgreater0 (proceso1). Las medias y las varianzas
+son: \textgreater{} mean(proceso1) {[}1{]} 0.04741929 \textgreater{}
+mean(proceso2) {[}1{]} 0.01453072 \textgreater{} var(proceso1) {[}1{]}
+1.711331 \textgreater{} var(proceso2) {[}1{]} 1.64307
+
+Notemos que la media para el proceso2 se acerca más a 0 y su varianza es
+más pequeña que la del proceso1.
+
+\hypertarget{literal-b-1}{%
+\subsection{Literal b:}\label{literal-b-1}}
+
+\hypertarget{grafica-de-acf-y-pacf-para-cada-una-de-las-trayectorias-anteiores}{%
+\subsubsection{Grafica de ACF y PACF para cada una de las trayectorias
+anteiores:}\label{grafica-de-acf-y-pacf-para-cada-una-de-las-trayectorias-anteiores}}
+
+\hypertarget{modelo-1}{%
+\paragraph{Modelo 1:}\label{modelo-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{acf}\NormalTok{(proceso1, }\AttributeTok{col =} \StringTok{"2"}\NormalTok{, }\AttributeTok{main =} \StringTok{""}\NormalTok{)}
+\FunctionTok{pacf}\NormalTok{(proceso1, }\AttributeTok{col =} \StringTok{"2"}\NormalTok{, }\AttributeTok{main =} \StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo1_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+Notese por el gráfico de ACF que estamos ante un proceso MA(2), ya que
+se corta abruptamente después de el segundo rezago.
+
+\hypertarget{modelo-2}{%
+\paragraph{Modelo 2:}\label{modelo-2}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{acf}\NormalTok{(proceso2, }\AttributeTok{col =} \StringTok{"2"}\NormalTok{, }\AttributeTok{main =} \StringTok{""}\NormalTok{)}
+\FunctionTok{pacf}\NormalTok{(proceso2, }\AttributeTok{col =} \StringTok{"2"}\NormalTok{, }\AttributeTok{main =} \StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo1_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+\hypertarget{literal-c}{%
+\subsubsection{Literal c:}\label{literal-c}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{zt }\OtherTok{\textless{}{-}}\NormalTok{ (}\FloatTok{0.6}\SpecialCharTok{*}\NormalTok{(Datos}\SpecialCharTok{$}\NormalTok{values[vector\_ts}\DecValTok{{-}1}\NormalTok{])}\SpecialCharTok{+}\NormalTok{Datos}\SpecialCharTok{$}\NormalTok{values[vector\_ts])}
+\NormalTok{zt\_1 }\OtherTok{\textless{}{-}}\NormalTok{ (}\FloatTok{0.6}\SpecialCharTok{*}\NormalTok{(Datos}\SpecialCharTok{$}\NormalTok{values[vector\_ts}\DecValTok{{-}1}\NormalTok{])}\SpecialCharTok{+}\NormalTok{Datos}\SpecialCharTok{$}\NormalTok{values[vector\_ts])}\SpecialCharTok{{-}}\DecValTok{1}
+\FunctionTok{plot}\NormalTok{(zt\_1,zt, }\AttributeTok{xlab =} \StringTok{"Z\_\{t{-}1\}"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Z\_\{t\}"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo1_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{zt }\OtherTok{\textless{}{-}}\NormalTok{ (}\FloatTok{0.6}\SpecialCharTok{*}\NormalTok{(Datos}\SpecialCharTok{$}\NormalTok{values[vector\_ts}\DecValTok{{-}1}\NormalTok{])}\SpecialCharTok{+}\NormalTok{Datos}\SpecialCharTok{$}\NormalTok{values[vector\_ts])}
+\NormalTok{zt\_2 }\OtherTok{\textless{}{-}}\NormalTok{ (}\FloatTok{0.6}\SpecialCharTok{*}\NormalTok{(Datos}\SpecialCharTok{$}\NormalTok{values[vector\_ts}\DecValTok{{-}1}\NormalTok{])}\SpecialCharTok{+}\NormalTok{Datos}\SpecialCharTok{$}\NormalTok{values[vector\_ts])}\SpecialCharTok{{-}}\DecValTok{2}
+\FunctionTok{plot}\NormalTok{(zt\_2, zt, }\AttributeTok{xlab =} \StringTok{"Z\_\{t{-}2\}"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Z\_\{t\}"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo1_files/figure-latex/unnamed-chunk-13-1.pdf}
+
+\hypertarget{punto-3}{%
+\subsection{Punto 3:}\label{punto-3}}
+
+\hypertarget{literal-a-2}{%
+\subsubsection{Literal a:}\label{literal-a-2}}
+
+Considerando del primer punto la información correspondiente al ruido
+blanco 𝑎𝑡, Se procede a construir el proceso autorregresivo AR(2).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a }\OtherTok{=}\NormalTok{ Datos}\SpecialCharTok{$}\NormalTok{values}
+\NormalTok{z }\OtherTok{\textless{}{-}}\NormalTok{ a}
+\NormalTok{z }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{100}\NormalTok{)}
+
+\NormalTok{z[}\DecValTok{1}\NormalTok{]}\OtherTok{\textless{}{-}}\NormalTok{ a[}\DecValTok{1}\NormalTok{]}
+\NormalTok{z[}\DecValTok{2}\NormalTok{] }\OtherTok{\textless{}{-}} \FloatTok{0.1}\SpecialCharTok{*}\NormalTok{z[}\DecValTok{2{-}1}\NormalTok{]}\SpecialCharTok{{-}}\FloatTok{0.5}\SpecialCharTok{*}\DecValTok{0} \SpecialCharTok{+}\NormalTok{ a[}\DecValTok{2}\NormalTok{]}
+
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{3}\SpecialCharTok{:}\DecValTok{100}\NormalTok{)\{}
+\NormalTok{  simu }\OtherTok{\textless{}{-}}  \FloatTok{0.1}\SpecialCharTok{*}\NormalTok{z[t}\DecValTok{{-}1}\NormalTok{] }\SpecialCharTok{{-}} \FloatTok{0.5}\SpecialCharTok{*}\NormalTok{z[t}\DecValTok{{-}2}\NormalTok{] }\SpecialCharTok{+}\NormalTok{ a[t]}
+\NormalTok{  z[t] }\OtherTok{\textless{}{-}}\NormalTok{ simu}
+\NormalTok{\}}
+
+\NormalTok{Datos2 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(times,z)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{literal-b-2}{%
+\subsubsection{Literal b:}\label{literal-b-2}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{acf}\NormalTok{(Datos2}\SpecialCharTok{$}\NormalTok{z, }\AttributeTok{col =} \DecValTok{2}\NormalTok{, }\AttributeTok{main =} \StringTok{"acf"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo1_files/figure-latex/unnamed-chunk-15-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{pacf}\NormalTok{(Datos2}\SpecialCharTok{$}\NormalTok{z, }\AttributeTok{col =} \DecValTok{2}\NormalTok{, }\AttributeTok{main =} \StringTok{"pacf"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo1_files/figure-latex/unnamed-chunk-16-1.pdf}
+
+\hypertarget{literal-c-1}{%
+\subsubsection{Literal c:}\label{literal-c-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{zt\_1 }\OtherTok{\textless{}{-}}\NormalTok{ z}
+
+\FunctionTok{plot}\NormalTok{(z,}\FunctionTok{lag}\NormalTok{(z,}\AttributeTok{n=}\DecValTok{1}\NormalTok{), }\AttributeTok{xlab=}\StringTok{"Zt"}\NormalTok{, }\AttributeTok{ylab=}\StringTok{"Zt{-}1"}\NormalTok{, }\AttributeTok{main=} \StringTok{"Gráfico de dispersión Zt vs Zt{-}1"}\NormalTok{, }\AttributeTok{col=} \StringTok{"blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo1_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(z,}\FunctionTok{lag}\NormalTok{(z,}\AttributeTok{n=}\DecValTok{2}\NormalTok{), }\AttributeTok{xlab=}\StringTok{"Zt"}\NormalTok{, }\AttributeTok{ylab=}\StringTok{"Zt{-}1"}\NormalTok{, }\AttributeTok{main=} \StringTok{"Gráfico de dispersión Zt vs Zt{-}2"}\NormalTok{, }\AttributeTok{col=} \StringTok{"blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo1_files/figure-latex/unnamed-chunk-18-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{zt\_3 }\OtherTok{\textless{}{-}}\NormalTok{ z}
+
+
+\FunctionTok{plot}\NormalTok{(z,}\FunctionTok{lag}\NormalTok{(z,}\AttributeTok{n=}\DecValTok{3}\NormalTok{), }\AttributeTok{xlab=}\StringTok{"Zt"}\NormalTok{, }\AttributeTok{ylab=}\StringTok{"Zt{-}3"}\NormalTok{, }\AttributeTok{main=} \StringTok{"Gráfico de dispersión Zt vs Zt{-}3"}\NormalTok{, }\AttributeTok{col=} \StringTok{"blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Trabajo1_files/figure-latex/unnamed-chunk-19-1.pdf}
+
+\end{document}

@@ -1,0 +1,2 @@
+"0","plot(Datos$values, Datos2$values2, main = ""Diagrama de Dispersión"", "
+"0","     xlab = ""Variable X"", ylab = ""Variable Y"")"

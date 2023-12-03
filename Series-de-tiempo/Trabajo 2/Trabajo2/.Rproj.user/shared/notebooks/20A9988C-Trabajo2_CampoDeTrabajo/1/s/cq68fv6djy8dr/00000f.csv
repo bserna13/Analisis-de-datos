@@ -1,0 +1,2 @@
+"0","# Gráfico ACF: "
+"0","acf(ts(serie_df1, frequency = 1))"

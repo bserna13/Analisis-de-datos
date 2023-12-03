@@ -1,0 +1,1 @@
+"0","Acf(diff(datos_ts^.43,lag = 1), lag.max=30, ci=0,ylim=c(-1,1))"

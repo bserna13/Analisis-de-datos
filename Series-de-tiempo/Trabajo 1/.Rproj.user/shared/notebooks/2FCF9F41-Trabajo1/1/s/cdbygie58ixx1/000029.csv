@@ -1,0 +1,4 @@
+"0",""
+"0",""
+"0","library(stats)"
+"0","acf(Datos2$z)"

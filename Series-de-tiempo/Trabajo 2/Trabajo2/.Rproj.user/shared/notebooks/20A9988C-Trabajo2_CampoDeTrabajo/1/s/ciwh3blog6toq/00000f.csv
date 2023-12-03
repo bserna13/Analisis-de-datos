@@ -1,0 +1,2 @@
+"0","datos <- read.csv(""Serie01_We_02_W6.csv"", sep = "";"")"
+"0","datos_ts = ts(datos) # Conversión a serie de tiempo"

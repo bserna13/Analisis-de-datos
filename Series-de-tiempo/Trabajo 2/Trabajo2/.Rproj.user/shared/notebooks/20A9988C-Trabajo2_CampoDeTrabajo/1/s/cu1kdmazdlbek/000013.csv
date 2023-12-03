@@ -1,0 +1,1 @@
+"0","pacf(datos_ts^0.43, lag.max=30, ylim=c(-1,1))"

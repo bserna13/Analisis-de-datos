@@ -1,0 +1,2 @@
+"0","plot.ts(diff(datos_ts^.43), ylab = ""Z_(t)-Z-(t-1)"", col = ""blue"", "
+"0","        main = ""Serie transformada diferenciada"", type = ""o"")"

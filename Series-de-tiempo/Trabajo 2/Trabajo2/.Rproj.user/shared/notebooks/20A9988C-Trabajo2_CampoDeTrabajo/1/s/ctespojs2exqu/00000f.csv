@@ -1,0 +1,2 @@
+"0","# Grafico PACF"
+"0","pacf(ts(serie_df1, frequency = 1))"

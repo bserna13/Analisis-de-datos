@@ -1,0 +1,2 @@
+"0","# Ahora, aplicamos el el método con el valor de lambda encontrado"
+"0","unemp_transf <- BoxCox(unemp, lambda= -0.02129048)"

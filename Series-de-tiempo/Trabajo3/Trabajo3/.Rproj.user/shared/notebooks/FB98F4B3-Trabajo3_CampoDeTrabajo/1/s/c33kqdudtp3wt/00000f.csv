@@ -1,0 +1,3 @@
+"0","## INTENTO, NO OLVIDAR QUITAR EN CASO TAL"
+"0","mod1 <- decompose(unemp, type = ""mult"")"
+"0","plot(mod1$trend)"

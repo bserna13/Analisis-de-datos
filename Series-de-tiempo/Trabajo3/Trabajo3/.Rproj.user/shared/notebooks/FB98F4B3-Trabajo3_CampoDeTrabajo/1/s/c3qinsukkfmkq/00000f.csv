@@ -1,0 +1,11 @@
+"0","# Lo haremos de la siguiente manera, con la libreria forecast:"
+"0","unemp_lambda <- powerTransform(unemp)"
+"0","unemp_lambda"
+"1","Estimated transformation parameter 
+"
+"1","      unemp "
+"1","
+"
+"1","-0.02129048 "
+"1","
+"

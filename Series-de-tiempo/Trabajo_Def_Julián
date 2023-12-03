@@ -1,0 +1,268 @@
+---
+title: "CamposDeTrabajo2"
+author: "Julián Saavedra"
+date: "2023-03-26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+## Cargue de paquetes:
+library(ggplot2)
+library(dplyr)
+library(hrbrthemes)
+library(forecast)
+library(tseries)
+library(TTR)
+library(stats)
+```
+
+## Punto 1: 
+
+## Literal a:
+
+```{r}
+## Cargue de base de datos: 
+generador <- function(cedula){
+set.seed(cedula)
+data <- rnorm(100)
+data
+}
+times <- seq(1,100)
+values <- generador(1007396943)
+Datos = data.frame(times,values)
+```
+
+
+## Literal b:
+
+### Función de autocorrelación ACF:
+
+```{r}
+## Calculemos los primeros 6 valores del ACF para identificar el comportamiento:
+vals_acf <- acf(Datos$values, lag.max = 6, plot = FALSE)
+vals_acf
+```
+
+
+
+```{r}
+## Será mucho más fácil visualizar los datos de las ACF muestrales:
+acf(Datos$values, ylim = c(-0.2,1), col="2", main = "")
+```
+
+### Función de autocorrelación parcial PACF:
+
+```{r}
+## Calculemos los primeros 6 valores del PACF
+vals_pacf <- pacf(Datos$values, lag.max = 6, plot = FALSE)
+vals_pacf
+```
+
+```{r}
+## Graficamente para la PACF:
+pacf(Datos$values, col="2", main = "")
+```
+
+Puede notarse, por la gráfica de Autocorrelación Simple, que estamos ante un proceso
+de media movil de orden 1 MA(1). Esto se debe a que para k = 0 la correlación es 
+igual a 1 y, se observa que la ACF se corta abruptamente después de el
+primer rezago. 
+
+
+# Punto 2: 
+Suponiendo que los datos del punto anterior corresponden a una realización
+de un proceso de ruido blanco, se tiene que:
+Nota: Renombremos a p como theta1
+
+## Literal a:
+
+### Primer proceso para MA(1) con correlación p > 0:
+
+
+$$
+MA(1): \\ 
+Con\hspace{0.2cm} \theta_{1}=0.6,\hspace{0.1cm}\text{la raíz de }\theta(B)=
+1+0.6B = 0\text{ es }B=-1.67.\\
+\text{Notemos que }|-1.67|>1, \\
+\text{Lo que indica que está por fuera del círculo unitario, por lo tanto es invertible.}\\
+\text{Así la ecuación que especifica al modelo está dada por:}\\
+Z_{t}=\mu+a_{t}+0.6a_{t-1}
+
+$$
+
+### Segundo proceso para MA(1) con correlación p < 0:
+
+$$
+MA(1): \\ 
+Con\hspace{0.2cm} \theta_{1}=-0.6,\hspace{0.1cm}\text{la raíz de }\theta(B)=
+1-0.6B = 0\text{ es }B=\frac{1}{0.6}=1.67.\\
+\text{Notemos que }|1.67|>1, \\
+\text{Lo que indica que está por fuera del círculo unitario, por lo tanto es invertible.}\\
+\text{Así la ecuación que especifica al modelo está dada por:}\\
+Z_{t}=\mu+a_{t}-0.6a_{t-1}
+
+$$
+
+
+### Comportamiento de las trayectorias:
+
+```{r}
+## Trayectoria para theta1 = 0.6
+vector_ts <- c(2:100)
+funcion1 <- function(vector_ts) {
+  0.6*(Datos$values[vector_ts-1])+Datos$values[vector_ts]
+}
+proceso1 <- sapply(vector_ts,funcion1)
+grafico1 <- plot(ts(proceso1), xlab = "Tiempo", ylab = "Valores",
+                 main = "Gráfico para el modelo 1 con p > 0", 
+                 ylim = c(-4.5,4.5))
+abline(h = 0, col = "blue", lty = "dashed")
+grid()
+```
+
+
+
+```{r}
+## Trayectoria para theta1 = -0.6
+funcion2 <- function(vector_ts) {
+  -0.6*(Datos$values[vector_ts-1])+Datos$values[vector_ts]
+}
+proceso2 <- sapply(vector_ts,funcion2)
+grafico2 <- plot(ts(proceso2), xlab = "Tiempo", ylab = "Valores",
+                 main = "Gráfico para el modelo 2 con p < 0",
+                 ylim = c(-4.5,4.5))
+abline(h = 0, col = "blue", lty = "dashed")
+grid()
+```
+
+
+```{r}
+## Comparando ambas graficas: 
+par(mfrow = c(1,2))
+plot(ts(proceso1), xlab = "Tiempo", ylab = "Valores",
+                 main = "Gráfico para el modelo 1 con p > 0", 
+                 ylim = c(-4.5,4.5), col = "2")
+abline(h = 0, col = "blue", lty = "dashed")
+plot(ts(proceso2), xlab = "Tiempo", ylab = "Valores",
+                 main = "Gráfico para el modelo 2 con p < 0",
+                 ylim = c(-4.5,4.5), col = "2")
+abline(h = 0, col = "blue", lty = "dashed")
+```
+
+Haciendo un paralelo entre las dos series temporales resultantes notamos que 
+el comportamiento del modelo con p<0 (proceso2) es mejor que para el modelo con 
+p>0 (proceso1). Las medias y las varianzas son: 
+> mean(proceso1)
+[1] 0.04741929
+> mean(proceso2)
+[1] 0.01453072
+> var(proceso1)
+[1] 1.711331
+> var(proceso2)
+[1] 1.64307
+
+Notemos que la media para el proceso2 se acerca más a 0 y su varianza es más 
+pequeña que la del proceso1. 
+
+
+## Literal b:
+
+### Grafica de ACF y PACF para cada una de las trayectorias anteiores: 
+
+
+#### Modelo 1:
+
+
+```{r}
+par(mfrow = c(1,2))
+acf(proceso1, col = "2", main = "")
+pacf(proceso1, col = "2", main = "")
+```
+
+Notese por el gráfico de ACF que estamos ante un proceso MA(2), ya que se corta 
+abruptamente después de el segundo rezago.
+
+
+
+#### Modelo 2:
+
+```{r}
+par(mfrow = c(1,2))
+acf(proceso2, col = "2", main = "")
+pacf(proceso2, col = "2", main = "")
+```
+
+
+### Literal c: 
+
+```{r}
+zt <- (0.6*(Datos$values[vector_ts-1])+Datos$values[vector_ts])
+zt_1 <- (0.6*(Datos$values[vector_ts-1])+Datos$values[vector_ts])-1
+plot(zt_1,zt, xlab = "Z_{t-1}", ylab = "Z_{t}")
+```
+
+
+
+```{r}
+zt <- (0.6*(Datos$values[vector_ts-1])+Datos$values[vector_ts])
+zt_2 <- (0.6*(Datos$values[vector_ts-1])+Datos$values[vector_ts])-2
+plot(zt_2, zt, xlab = "Z_{t-2}", ylab = "Z_{t}")
+```
+
+## Punto 3:
+
+### Literal a:
+
+Considerando del primer punto la información correspondiente al ruido blanco 
+𝑎𝑡, Se procede a construir el proceso autorregresivo AR(2).
+
+
+```{r}
+#z(t) = 0.1z(t-1) - 0.5z(t-2)+ a(t)
+vector_ts1 <- c(3:100)
+funcion3 <- function(vector_ts1) {
+  0.1*(Datos$values[vector_ts1-1])-0.5*(Datos$values[vector_ts1-2])+Datos$values[vector_ts1]
+}
+proceso3 <- sapply(vector_ts1,funcion3)
+```
+
+
+### Literal b:
+
+
+```{r}
+acf(proceso3, col = "2", main = "")
+```
+
+```{r}
+pacf(proceso3, col = "2", main = "")
+```
+
+
+### Literal c:
+
+
+```{r}
+zt2 <- 0.1*(Datos$values[vector_ts1-1])-0.5*(Datos$values[vector_ts1-2])+Datos$values[vector_ts1]
+zt2_1 <- (0.1*(Datos$values[vector_ts1-1])-0.5*(Datos$values[vector_ts1-2])+Datos$values[vector_ts1])-1
+plot(zt2_1, zt2, xlab = "Z_{t-1}", ylab = "Z_{t}")
+```
+
+
+```{r}
+zt2 <- 0.1*(Datos$values[vector_ts1-1])-0.5*(Datos$values[vector_ts1-2])+Datos$values[vector_ts1]
+zt2_2 <- (0.1*(Datos$values[vector_ts1-1])-0.5*(Datos$values[vector_ts1-2])+Datos$values[vector_ts1])-2
+plot(zt2_2, zt2, xlab = "Z_{t-2}", ylab = "Z_{t}")
+```
+
+
+```{r}
+zt2 <- 0.1*(Datos$values[vector_ts1-1])-0.5*(Datos$values[vector_ts1-2])+Datos$values[vector_ts1]
+zt2_3 <- (0.1*(Datos$values[vector_ts1-1])-0.5*(Datos$values[vector_ts1-2])+Datos$values[vector_ts1])-3
+plot(zt2_3, zt2, xlab = "Z_{t-3}", ylab = "Z_{t}")
+```
